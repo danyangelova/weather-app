@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="style.css" />
+      <title>Weather App</title>
+   </head>
+   <body>
+      <main>
+         <header class="app-header">
+            <h1>Weather App</h1>
+         </header>
+
+         <!-- Search section -->
+         <div class="search-section">
+            <form class="search-form">
+               <input
+                  type="search"
+                  name="search"
+                  class="search-input"
+                  placeholder="Search city..."
+                  autocomplete="off"
+               />
+               <button type="submit" class="search-btn">Search</button>
+            </form>
+         </div>
+
+         <!-- Weather card -->
+         <section>
+            <div class="weather-section-label">Currently</div>
+            <div class="current-weather-card">
+               <div class="current-weather-data">
+                  <div class="current-weather-left">
+                     <div class="current-city">Plovdiv</div>
+                     <div class="current-date">Monday, December 8</div>
+                     <div class="current-temp">8°C</div>
+                     <div class="current-icon">☁️</div>
+                  </div>
+                  <div class="current-weather-right">
+                     <div class="current-condition">Cloudy</div>
+                     <ul class="current-details">
+                        <li><span>Precipitation:</span> 0%</li>
+                        <li><span>Humidity:</span> 81%</li>
+                        <li><span>Wind:</span> 3 km/h</li>
+                     </ul>
+                  </div>
+               </div>
+
+               <div class="quarter-hour-strip">
+                  <div class="quarter-hour-item">
+                     <div>22:15</div>
+                     <div>☁️</div>
+                     <div class="temp">8°</div>
+                  </div>
+                  <div class="quarter-hour-item">
+                     <div>22:30</div>
+                     <div>☁️</div>
+                     <div class="temp">7°</div>
+                  </div>
+                  <div class="quarter-hour-item">
+                     <div>22:45</div>
+                     <div>☁️</div>
+                     <div class="temp">7°</div>
+                  </div>
+                  <div class="quarter-hour-item">
+                     <div>23:00</div>
+                     <div>☁️</div>
+                     <div class="temp">6°</div>
+                  </div>
+                  <div class="quarter-hour-item">
+                     <div>23:15</div>
+                     <div>☁️</div>
+                     <div class="temp">6°</div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- 🌧️ -->
+
+         <!-- <section>
+            <div class="daily-forecast-list">
+               <div class="forecast-card">
+                  <div class="day">Mon</div>
+                  <div class="icon">🌤️</div>
+                  <div class="temp">12° / 7°</div>
+               </div>
+               <div class="forecast-card">
+                  <div class="day">Thu</div>
+                  <div class="icon">☁️</div>
+                  <div class="temp">10° / 4°</div>
+               </div>
+            </div>
+         </section> -->
+      </main>
+   </body>
+</html>

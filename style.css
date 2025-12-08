@@ -1,0 +1,169 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0f172a;
+    color: #e5e7eb;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.3rem;
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+section {
+    padding: 1rem 1.25rem;
+    margin-top: 2rem;
+}
+
+/* -----SEARCH SECTION----- */
+/* input */
+.search-section {
+    display: flex;
+    justify-content: center;
+}
+
+.search-form {
+    display: flex;
+    gap: 1rem;
+}
+
+.search-input {
+    width: 380px;
+    padding: 0.85rem 1.2rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    border: none;
+    background-color: #1e293b;
+    color: white;
+}
+
+.search-input::placeholder {
+    color: #94a3b8;
+}
+
+.search-input:hover,
+.search-input:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 12px 3px rgba(56, 189, 248, 0.6);
+    outline: none;
+}
+
+.search-input::-webkit-search-cancel-button {
+    cursor: pointer;
+}
+
+/* button */
+.search-btn {
+    padding: 0.85rem 1.2rem;
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.search-btn:hover {
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+}
+
+.search-btn:active {
+    transform: scale(0.97);
+}
+
+
+/* -----CURRENT WEATHER CARD----- */
+.weather-section-label {
+    margin: 0 0 0.3rem 0.2rem;
+}
+
+.current-weather-card {
+    width: 39%;
+    background: linear-gradient(135deg, #1d4ed8, #22c55e);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+/* current weather data (first half) */
+.current-weather-data {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.current-weather-left,
+.current-weather-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.current-city {
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+.current-date {
+    font-size: 0.95rem;
+}
+
+.current-temp {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.current-icon {
+    font-size: 2.5rem;
+}
+
+.current-condition {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.current-details {
+    list-style: none;
+    font-size: 0.9rem;
+}
+
+.current-details li span {
+    font-weight: 600;
+    margin-right: 0.3rem;
+}
+
+/* quarter hour strip (second half) */
+.quarter-hour-strip {
+    display: flex;
+    justify-content: space-between;
+}
+
+.quarter-hour-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quarter-hour-item .temp {
+    font-weight: 600;
+}
+
+
+/* -----DAILY FORCAST----- */
