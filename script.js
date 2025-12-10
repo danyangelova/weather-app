@@ -2,6 +2,7 @@
 // DOM ELEMENTS
 const searchForm = document.getElementById("search-form");
 const searchCityInput = document.getElementById("search-city-input");
+const searchResult = document.getElementById("search-results");
 
 
 //function which talks with Geocoding API
@@ -16,8 +17,6 @@ async function fetchLocationsByName(name) {
 
         const data = await response.json();
         const locations = data.results ?? [];
-        console.log(locations);
-        
         return locations;
 
     } catch (error) {
@@ -37,4 +36,25 @@ searchForm.addEventListener("submit", async function (event) {
 
     const locations = await fetchLocationsByName(userCityQuery);
     console.log(locations);
+    if (locations.length === 0) {
+        searchResult.innerHTML = "<p>No locations found.</p>"
+        searchCityInput.value = "";
+        return;
+    }
+
+    const listItems = locations
+        .map((location) => {
+            const country = location.country ?? location.country_code;
+            const nameAndCountry = `${location.name}, ${country}`;
+            return `<li>${nameAndCountry}</li>`;
+        })
+        .join("");
+
+    searchResult.innerHTML = `
+        <ul>
+            ${listItems}
+        </ul>
+    `;
+
+    searchCityInput.value = "";
 })
