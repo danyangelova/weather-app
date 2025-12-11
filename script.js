@@ -3,6 +3,9 @@
 const searchForm = document.getElementById("search-form");
 const searchCityInput = document.getElementById("search-city-input");
 const searchResult = document.getElementById("search-results");
+const currentCity = document.getElementById("current-city");
+
+let currentLocations = [];
 
 
 //function which talks with Geocoding API
@@ -28,6 +31,8 @@ async function fetchLocationsByName(name) {
 searchForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
+    searchResult.classList.remove("hidden");
+
     const userCityQuery = searchCityInput.value.trim();
     if (!userCityQuery) {
         alert("empty");
@@ -35,7 +40,7 @@ searchForm.addEventListener("submit", async function (event) {
     }
 
     const locations = await fetchLocationsByName(userCityQuery);
-    console.log(locations);
+    currentLocations = locations;
     if (locations.length === 0) {
         searchResult.innerHTML = "<p>No locations found.</p>"
         searchCityInput.value = "";
@@ -43,10 +48,10 @@ searchForm.addEventListener("submit", async function (event) {
     }
 
     const listItems = locations
-        .map((location) => {
+        .map((location, index) => {
             const country = location.country ?? location.country_code;
             const nameAndCountry = `${location.name}, ${country}`;
-            return `<li>${nameAndCountry}</li>`;
+            return `<li data-index="${index}">${nameAndCountry}</li>`;
         })
         .join("");
 
@@ -57,4 +62,16 @@ searchForm.addEventListener("submit", async function (event) {
     `;
 
     searchCityInput.value = "";
+})
+
+searchResult.addEventListener("click", function (event) {
+    const li = event.target.closest("li");
+    if(!li) return;
+
+    const index = Number(li.dataset.index);
+    const currentLocation = currentLocations[index];
+    if (!currentLocation) return;
+
+    currentCity.textContent = `${currentLocation.name}, ${currentLocation.country_code}`;
+    searchResult.classList.add("hidden");
 })
