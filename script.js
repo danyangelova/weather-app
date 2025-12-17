@@ -1,14 +1,16 @@
 
-// DOM ELEMENTS
+// DOM refs -> input/output to UI
 const searchForm = document.getElementById("search-form");
 const searchCityInput = document.getElementById("search-city-input");
 const searchResult = document.getElementById("search-results");
 const currentCity = document.getElementById("current-city");
+const currentDate = document.getElementById("current-date");
 
+// state - reload page->losing currentLocations
 let currentLocations = [];
 
 
-//function which talks with Geocoding API
+// API function -> source of data
 async function fetchLocationsByName(name) {
     const url = `https://geocoding-api.open-meteo.com/v1/search?` +
         `name=${encodeURIComponent(name)}` +
@@ -28,6 +30,7 @@ async function fetchLocationsByName(name) {
     }
 }
 
+// Form Submit handler
 searchForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -64,9 +67,10 @@ searchForm.addEventListener("submit", async function (event) {
     searchCityInput.value = "";
 })
 
+// Handle location selection (div clicked)
 searchResult.addEventListener("click", function (event) {
     const li = event.target.closest("li");
-    if(!li) return;
+    if (!li) return;
 
     const index = Number(li.dataset.index);
     const currentLocation = currentLocations[index];
@@ -75,3 +79,12 @@ searchResult.addEventListener("click", function (event) {
     currentCity.textContent = `${currentLocation.name}, ${currentLocation.country_code}`;
     searchResult.classList.add("hidden");
 })
+
+function formatDate(date) {
+    return date.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric"
+    });
+}
+currentDate.textContent = formatDate(new Date());
