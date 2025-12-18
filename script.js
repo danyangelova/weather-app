@@ -110,7 +110,7 @@ searchResult.addEventListener("click", async function (event) {
     if (!currentLocation) return;
 
     selectedCardLocation = currentLocation;
-    console.log(currentLocation);
+    // console.log(currentLocation);
 
     currentCity.textContent = `${currentLocation.name}, ${currentLocation.country_code}`;
     searchResult.classList.add("hidden");
@@ -123,7 +123,20 @@ searchResult.addEventListener("click", async function (event) {
     }
     currentCardWeather = data.current;
     minutely15CardForecast = data.minutely_15;
+
+    renderCurrentWeather(currentCardWeather);
 })
+
+// Render Function
+function renderCurrentWeather(current) { //renderCurrentWeather(currentCardWeather)
+    currentTemp.textContent = `${Math.round(current.temperature_2m)}°C`;
+    currentHumidity.textContent = `${current.relative_humidity_2m}%`;
+    currentWind.textContent = `${Math.round(current.wind_speed_10m)} km/h`;
+    //temporary:
+    currentCondition.textContent = `Code: ${current.weather_code}`;
+}
+
+
 
 // Utility: format Date object into readable weekday + month + day
 function formatDate(date) {
