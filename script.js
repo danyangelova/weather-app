@@ -127,13 +127,32 @@ searchResult.addEventListener("click", async function (event) {
     renderCurrentWeather(currentCardWeather);
 })
 
+function mapWeatherCodeToInfo(codeNum) {
+    if (codeNum === 0) return { label: "Clear sky", icon: "☀️" };
+
+    if (codeNum === 1) return { label: "Mainly clear", icon: "🌤️" }
+    if (codeNum === 2) return { label: "Partly cloudy", icon: "⛅" }
+    if (codeNum === 3) return { label: "Cloudy", icon: "☁️" }
+
+    if (codeNum === 51 || codeNum === 53 || codeNum === 55) return { label: "Drizzle", icon: "🌦️" };
+    if (codeNum === 61 || codeNum === 63 || codeNum === 65) return { label: "Rain", icon: "🌧️" };
+
+    if (codeNum === 71 || codeNum === 73 || codeNum === 75) return { label: "Snow", icon: "🌨️" };
+
+    if (codeNum === 95) return { label: "Thunderstorm", icon: "⛈️" };
+
+    return { label: `Unknown (${codeNum})`, icon: "❓" };
+}
+
 // Render Function
 function renderCurrentWeather(current) { //renderCurrentWeather(currentCardWeather)
     currentTemp.textContent = `${Math.round(current.temperature_2m)}°C`;
     currentHumidity.textContent = `${current.relative_humidity_2m}%`;
     currentWind.textContent = `${Math.round(current.wind_speed_10m)} km/h`;
-    //temporary:
-    currentCondition.textContent = `Code: ${current.weather_code}`;
+    
+    const {label, icon} = mapWeatherCodeToInfo(current.weather_code);
+    currentCondition.textContent = label;
+    currentIcon.textContent = icon;
 }
 
 
