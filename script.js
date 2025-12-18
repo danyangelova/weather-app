@@ -18,8 +18,9 @@ const currentWind = document.getElementById("current-wind");
 // state - reload page->losing currentLocations
 let currentLocations = [];
 
-let selectedLocation = null;
-let currentWeather = null;
+let selectedCardLocation = null;
+let currentCardWeather = null;
+let minutely15CardForecast = null;
 
 // Data source: Geocoding (locations)
 async function fetchLocationsByName(name) {
@@ -40,44 +41,6 @@ async function fetchLocationsByName(name) {
         return [];
     }
 }
-
-// async function fetchCurrentWeather(lat, lon) {
-//     const url =
-//         `https://api.open-meteo.com/v1/forecast?` +
-//         `latitude=${lat}&longitude=${lon}` +
-//         `&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m` +
-//         `&wind_speed_unit=kmh` +
-//         `&timezone=auto`;
-//     try {
-//         const response = await fetch(url);
-//         if (!response.ok) throw new Error(`Failed to fetch forecast (${response.status})`);
-//         const data = await response.json();
-//         // console.log("FULL FORECAST DATA:", data);
-//         return data.current;
-//     } catch (error) {
-//         console.log("Error fetching forecast:", error);
-//         return null;
-//     }
-// }
-// async function fetchMinutely15(lat, lon) {
-//     const url =
-//         `https://api.open-meteo.com/v1/forecast?` +
-//         `latitude=${lat}&longitude=${lon}` +
-//         `&minutely_15=temperature_2m,weather_code` +
-//         `&timezone=auto` +
-//         `&forecast_minutely_15=5`;
-//     try {
-//         const response = await fetch(url);
-//         if (!response.ok) throw new Error(`Failed to fetch minutely_15 (${response.status})`);
-//         const data = await response.json();
-//         // console.log("FULL MINUTELY_15 DATA:", data);
-//         return data.minutely_15;
-//     } catch (error) {
-//         console.log("Error fetching minutely_15:", error);
-//         return null;
-//     }
-// }
-
 
 // Data source: Weather Forecast API (current + minutely_15)
 async function fetchWeatherBundle(lat, lon) {
@@ -138,7 +101,7 @@ searchForm.addEventListener("submit", async function (event) {
 })
 
 // Handle location selection (div clicked)
-searchResult.addEventListener("click", function (event) {
+searchResult.addEventListener("click", async function (event) {
     const li = event.target.closest("li");
     if (!li) return;
 
@@ -146,10 +109,23 @@ searchResult.addEventListener("click", function (event) {
     const currentLocation = currentLocations[index];
     if (!currentLocation) return;
 
+    selectedCardLocation = currentLocation;
+    console.log(currentLocation);
+
     currentCity.textContent = `${currentLocation.name}, ${currentLocation.country_code}`;
     searchResult.classList.add("hidden");
+
+    const data = await fetchWeatherBundle(currentLocation.latitude, currentLocation.longitude);
+    console.log(data);
+    if (!data) {
+        console.warn("No weather data received (fetchWeatherBundle returned null).");
+        return;
+    }
+    currentCardWeather = data.current;
+    minutely15CardForecast = data.minutely_15;
 })
 
+// Utility: format Date object into readable weekday + month + day
 function formatDate(date) {
     return date.toLocaleDateString("en-US", {
         weekday: "long",
